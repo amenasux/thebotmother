@@ -247,6 +247,10 @@
           <input type="text" name="name" placeholder="Your name" required>
           <input type="text" name="business" placeholder="Business name" required>
         </div>
+        <div class="row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="text" name="business" placeholder="Business name" required>
+        </div>
         <select name="business_type" required>
           <option value="" disabled selected>Business type</option>
           <option>Retail / Shop</option>
@@ -255,7 +259,11 @@
           <option>Online store</option>
           <option>Other</option>
         </select>
-        <input type="text" name="contact" placeholder="WhatsApp number or Telegram username" required>
+        <div class="row">
+          <select id="countryCode" required></select>
+          <input type="tel" id="phoneInput" placeholder="Phone number" required autocomplete="tel">
+        </div>
+        <input type="hidden" name="contact" id="contactField" required>
         <input type="text" name="bot_idea" placeholder="In one sentence: what should the bot do? (optional)">
         <button type="submit" class="btn btn-rose" id="pilotBtn">Claim my free pilot →</button>
         <p class="form-note">Prefer chatting first? <a href="https://wa.me/21693008233?text=Hi%2C%20I%20want%20the%20free%202-week%20pilot!" target="_blank" rel="noopener" style="color:var(--rose); font-weight:600;">Message us on WhatsApp</a></p>
@@ -395,12 +403,38 @@
   sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setYearly(!sw.classList.contains('on')); } });
 
   // Pilot form → FormSubmit (emails Amen directly, feeds the pilot pipeline)
+  const COUNTRIES = [
+    ['🇩🇪', 'Germany', '+49'], ['🇫🇷', 'France', '+33'], ['🇹🇳', 'Tunisia', '+216'], ['🇬🇧', 'UK', '+44'],
+    ['🇺🇸', 'USA', '+1'], ['🇮🇹', 'Italy', '+39'], ['🇪🇸', 'Spain', '+34'], ['🇳🇱', 'Netherlands', '+31'],
+    ['🇧🇪', 'Belgium', '+32'], ['🇨🇭', 'Switzerland', '+41'], ['🇦🇹', 'Austria', '+43'], ['🇵🇱', 'Poland', '+48'],
+    ['🇵🇹', 'Portugal', '+351'], ['🇸🇪', 'Sweden', '+46'], ['🇮🇪', 'Ireland', '+353'], ['🇩🇰', 'Denmark', '+45'],
+    ['🇳🇴', 'Norway', '+47'], ['🇫🇮', 'Finland', '+358'], ['🇬🇷', 'Greece', '+30'], ['🇷🇴', 'Romania', '+40'],
+    ['🇨🇿', 'Czechia', '+420'], ['🇭🇺', 'Hungary', '+36'], ['🇹🇷', 'Türkiye', '+90'], ['🇲🇦', 'Morocco', '+212'],
+    ['🇩🇿', 'Algeria', '+213'], ['🇪🇬', 'Egypt', '+20'], ['🇸🇦', 'Saudi Arabia', '+966'], ['🇦🇪', 'UAE', '+971'],
+    ['🇶🇦', 'Qatar', '+974'], ['🇰🇼', 'Kuwait', '+965'], ['🇯🇴', 'Jordan', '+962'], ['🇱🇧', 'Lebanon', '+961'],
+    ['🇱🇾', 'Libya', '+218'], ['🇸🇳', 'Senegal', '+221'], ['🇨🇮', 'Ivory Coast', '+225'], ['🇨🇦', 'Canada', '+1'],
+    ['🇦🇺', 'Australia', '+61'], ['🇧🇷', 'Brazil', '+55'], ['🇮🇳', 'India', '+91'], ['🇿🇦', 'South Africa', '+27'],
+    ['🌐', 'Other / worldwide', '']
+  ];
+  const ccSelect = document.getElementById('countryCode');
+  COUNTRIES.forEach(([flag, name, dial], i) => {
+    const o = document.createElement('option');
+    o.value = dial; o.textContent = `${flag} ${name}${dial ? ' ' + dial : ''}`;
+    if (i === 0) o.selected = true;
+    ccSelect.appendChild(o);
+  });
+
   const form = document.getElementById('pilotForm');
   const btn = document.getElementById('pilotBtn');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btn.disabled = true; btn.textContent = 'Sending…';
     const data = Object.fromEntries(new FormData(form).entries());
+    // Build the contact: dial code + number (strip spaces, dashes, leading zeros)
+    const dial = ccSelect.value;
+    const raw = document.getElementById('phoneInput').value.replace(/[\s\-()]/g, '').replace(/^0+/, '');
+    const contact = dial ? `${dial} ${raw}` : (raw.startsWith('+') ? raw : `+${raw}`);
+    document.getElementById('contactField').value = contact;
     try {
       const r = await fetch('https://formsubmit.co/ajax/amenallahbensalem135@gmail.com', {
         method: 'POST',
@@ -417,7 +451,7 @@
       document.getElementById('formOk').style.display = 'block';
     } catch (err) {
       // Fallback: open WhatsApp with the prefilled request
-      const text = encodeURIComponent(`Hi! Free pilot request:%0AName: ${data.name}%0ABusiness: ${data.business} (${data.business_type})%0AContact: ${data.contact}%0ABot idea: ${data.bot_idea || '—'}`);
+      const text = encodeURIComponent(`Hi! Free pilot request:\nName: ${data.name}\nBusiness: ${data.business} (${data.business_type})\nContact: ${contact}\nBot idea: ${data.bot_idea || '—'}`);
       window.open('https://wa.me/21693008233?text=' + text, '_blank');
       form.style.display = 'none';
       document.getElementById('formOk').style.display = 'block';
