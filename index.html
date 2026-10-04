@@ -4,85 +4,426 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Bot Mother — Describe an agent. She builds it.</title>
-<meta name="description" content="AI agents for small businesses. Describe what you need — The Bot Mother builds it, tests it, and runs it 24/7.">
+<meta name="description" content="AI agents for small businesses. Describe what you need — The Bot Mother builds it, tests it, and runs it 24/7. Free 2-week pilot.">
+<meta property="og:title" content="The Bot Mother — Describe an agent. She builds it.">
+<meta property="og:description" content="Your shop bot, built live in minutes. Free 2-week pilot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --rose: #E11D48; --rose-soft: rgba(225,29,72,.12); --rose-line: rgba(225,29,72,.35);
+    --bg: #111827; --panel: #1a2233; --panel-2: #212a3f; --line: #2c364e;
+    --text: #f3f4f6; --muted: #9ca3af; --dim: #6b7280;
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background:#0d1117; color:#e6edf3; line-height:1.6; }
-  .wrap { max-width: 860px; margin:0 auto; padding: 0 20px; }
-  header { padding: 60px 0 40px; text-align:center;
-    background: radial-gradient(ellipse at top, #1a2a4a 0%, #0d1117 65%); }
-  h1 { font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: -1px; }
-  h1 span { background: linear-gradient(90deg, #e754a4, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .tag { font-size: clamp(1.05rem, 3vw, 1.4rem); color:#9aa7b8; margin-top: 12px; }
-  .cta { display:inline-block; margin-top: 26px; padding: 14px 34px; border-radius: 12px; font-weight:700; font-size:1.05rem;
-    background: linear-gradient(90deg, #e754a4, #8b5cf6); color:#fff; text-decoration:none; }
-  .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(231,84,164,.35); }
-  section { padding: 44px 0; }
-  h2 { font-size: 1.5rem; margin-bottom: 18px; color:#e754a4; }
-  .steps { display:grid; gap:14px; }
-  .step { background:#161b27; border:1px solid #24304a; border-radius:14px; padding:18px 20px; }
-  .step b { color:#fff; font-size:1.05rem; }
-  .step p { color:#9aa7b8; margin-top:4px; }
-  .num { display:inline-block; width:26px; height:26px; border-radius:50%; background:linear-gradient(90deg,#e754a4,#8b5cf6);
-    text-align:center; line-height:26px; font-weight:800; font-size:.85rem; margin-right:8px; }
-  .proof { display:flex; flex-wrap:wrap; gap:10px; }
-  .chip { background:#161b27; border:1px solid #24304a; border-radius:999px; padding:7px 16px; font-size:.88rem; color:#9aa7b8; }
-  footer { border-top:1px solid #24304a; margin-top:30px; padding:26px 0 40px; text-align:center; color:#64748b; font-size:.88rem; }
-  footer a { color:#e754a4; text-decoration:none; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Geist', system-ui, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 20px; }
+  a { color:inherit; }
+  nav { position:sticky; top:0; z-index:50; background:rgba(17,24,39,.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; }
+  .logo { font-weight:800; font-size:1.1rem; letter-spacing:-.3px; text-decoration:none; }
+  .logo em { color:var(--rose); font-style:normal; }
+  nav .links { display:flex; gap:22px; font-size:.92rem; }
+  nav .links a { color:var(--muted); text-decoration:none; }
+  nav .links a:hover { color:var(--text); }
+  @media (max-width:640px){ nav .links a.hide-m { display:none; } }
+
+  .btn { display:inline-block; padding:13px 30px; border-radius:12px; font-weight:700; font-size:1rem; text-decoration:none; border:none; cursor:pointer; font-family:inherit; transition:transform .15s, box-shadow .15s; }
+  .btn-rose { background:var(--rose); color:#fff; }
+  .btn-rose:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(225,29,72,.4); }
+  .btn-ghost { background:transparent; color:var(--text); border:1px solid var(--line); }
+  .btn-ghost:hover { border-color:var(--rose-line); color:#fff; }
+
+  header.hero { padding:84px 0 64px; text-align:center; background: radial-gradient(ellipse 80% 50% at 50% -10%, var(--rose-soft) 0%, transparent 70%); }
+  .kicker { display:inline-block; font-size:.8rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--rose); background:var(--rose-soft); border:1px solid var(--rose-line); border-radius:999px; padding:6px 16px; margin-bottom:22px; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); font-weight:800; letter-spacing:-1.5px; line-height:1.12; }
+  h1 span { color:var(--rose); }
+  .sub { font-size: clamp(1.05rem, 2.5vw, 1.3rem); color:var(--muted); max-width:620px; margin:18px auto 0; }
+  .hero-cta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:32px; }
+  .hero-note { margin-top:14px; font-size:.85rem; color:var(--dim); }
+
+  /* Magic Bar mock */
+  .magic { max-width:640px; margin:44px auto 0; background:var(--panel); border:1px solid var(--line); border-radius:18px; overflow:hidden; text-align:left; box-shadow:0 30px 80px rgba(0,0,0,.45); }
+  .magic-bar { display:flex; align-items:center; gap:8px; padding:12px 16px; background:var(--panel-2); border-bottom:1px solid var(--line); }
+  .dot { width:10px; height:10px; border-radius:50%; background:#374151; }
+  .dot.r { background:var(--rose); }
+  .magic-title { margin-left:8px; font-size:.8rem; color:var(--dim); font-weight:500; }
+  .magic-body { padding:20px; display:grid; gap:14px; }
+  .msg { max-width:85%; padding:11px 15px; border-radius:14px; font-size:.93rem; }
+  .msg.user { background:var(--rose); color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .msg.bot { background:var(--panel-2); border:1px solid var(--line); color:var(--muted); border-bottom-left-radius:4px; }
+  .msg.bot b { color:var(--text); font-weight:600; }
+  .build { display:flex; flex-wrap:wrap; gap:8px; }
+  .build i { font-style:normal; font-size:.78rem; font-weight:600; color:var(--rose); background:var(--rose-soft); border:1px solid var(--rose-line); border-radius:999px; padding:4px 12px; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:40px; }
+  .chip { background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:8px 18px; font-size:.87rem; color:var(--muted); }
+  .chip b { color:var(--text); font-weight:600; }
+
+  section { padding:70px 0; }
+  section.alt { background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight:800; letter-spacing:-.6px; text-align:center; }
+  h2 + .lead { text-align:center; color:var(--muted); max-width:600px; margin:10px auto 0; }
+  .sec-eyebrow { text-align:center; font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--rose); margin-bottom:10px; }
+
+  .stages { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-top:38px; }
+  .stage { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  section.alt .stage { background:var(--panel-2); }
+  .stage .num { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:9px; background:var(--rose-soft); color:var(--rose); font-weight:800; font-size:.9rem; margin-bottom:10px; }
+  .stage b { display:block; font-size:1.02rem; font-weight:700; }
+  .stage p { color:var(--muted); font-size:.92rem; margin-top:4px; }
+
+  .examples { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-top:38px; }
+  .example { background:var(--panel-2); border:1px solid var(--line); border-radius:14px; padding:22px; }
+  .example .emoji { font-size:1.6rem; }
+  .example b { display:block; margin-top:8px; font-size:1.05rem; }
+  .example p { color:var(--muted); font-size:.92rem; margin-top:4px; }
+
+  /* Pilot */
+  .pilot-card { max-width:660px; margin:38px auto 0; background:linear-gradient(180deg, var(--panel-2), var(--panel)); border:1px solid var(--rose-line); border-radius:20px; padding:34px; }
+  .pilot-badge { display:inline-block; font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--rose); border-radius:999px; padding:5px 14px; }
+  .pilot-card h3 { font-size:1.5rem; font-weight:800; letter-spacing:-.4px; margin-top:14px; }
+  .pilot-card .p-sub { color:var(--muted); margin-top:6px; font-size:.95rem; }
+  .pilot-list { margin:18px 0 0; list-style:none; display:grid; gap:8px; }
+  .pilot-list li { color:var(--muted); font-size:.93rem; }
+  .pilot-list li::before { content:"✓"; color:var(--rose); font-weight:800; margin-right:10px; }
+  form { display:grid; gap:12px; margin-top:24px; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:560px){ .row { grid-template-columns:1fr; } }
+  input, select { width:100%; padding:13px 15px; border-radius:11px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-family:inherit; font-size:.95rem; }
+  input:focus, select:focus { outline:none; border-color:var(--rose); }
+  select { appearance:none; background-image:linear-gradient(45deg, transparent 50%, var(--dim) 50%), linear-gradient(135deg, var(--dim) 50%, transparent 50%); background-position:calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size:5px 5px; background-repeat:no-repeat; }
+  .form-note { font-size:.8rem; color:var(--dim); text-align:center; margin-top:4px; }
+  .form-ok { display:none; text-align:center; padding:30px 10px; }
+  .form-ok b { font-size:1.2rem; color:var(--rose); }
+  .form-ok p { color:var(--muted); margin-top:8px; font-size:.95rem; }
+
+  /* Pricing */
+  .toggle { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:24px; font-size:.92rem; color:var(--muted); }
+  .switch { position:relative; width:52px; height:28px; border-radius:999px; background:var(--panel-2); border:1px solid var(--line); cursor:pointer; transition:background .2s; }
+  .switch::after { content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:var(--dim); transition:.2s; }
+  .switch.on { background:var(--rose-soft); border-color:var(--rose-line); }
+  .switch.on::after { left:27px; background:var(--rose); }
+  .save { color:var(--rose); font-weight:700; font-size:.85rem; }
+  .plans { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px; margin-top:34px; align-items:stretch; }
+  .plan { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:26px; display:flex; flex-direction:column; }
+  .plan.featured { border-color:var(--rose); box-shadow:0 0 0 1px var(--rose), 0 20px 50px rgba(225,29,72,.15); position:relative; }
+  .plan .tagp { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--rose); color:#fff; font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; border-radius:999px; padding:4px 14px; white-space:nowrap; }
+  .plan h3 { font-size:1.1rem; font-weight:700; }
+  .plan .for { color:var(--dim); font-size:.85rem; margin-top:2px; }
+  .price { margin-top:16px; display:flex; align-items:baseline; gap:6px; }
+  .price .amount { font-size:2.4rem; font-weight:800; letter-spacing:-1px; }
+  .price .per { color:var(--dim); font-size:.9rem; }
+  .price .year-amt { display:none; }
+  .plan.yearly .price .month-amt { display:none; }
+  .plan.yearly .price .year-amt { display:inline; }
+  .price .year-note { font-size:.75rem; color:var(--dim); }
+  .plan ul { list-style:none; margin-top:18px; display:grid; gap:9px; flex:1; }
+  .plan li { font-size:.9rem; color:var(--muted); }
+  .plan li::before { content:"✓"; color:var(--rose); font-weight:800; margin-right:9px; }
+  .plan .btn { margin-top:20px; width:100%; text-align:center; padding:11px; }
+  .pricing-note { text-align:center; color:var(--dim); font-size:.82rem; margin-top:20px; }
+
+  /* FAQ */
+  .faq { max-width:680px; margin:34px auto 0; display:grid; gap:10px; }
+  details { background:var(--panel); border:1px solid var(--line); border-radius:13px; padding:16px 20px; }
+  details[open] { border-color:var(--rose-line); }
+  summary { font-weight:600; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; font-size:.98rem; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; color:var(--rose); font-weight:800; font-size:1.2rem; transition:transform .2s; }
+  details[open] summary::after { transform:rotate(45deg); }
+  details p { color:var(--muted); font-size:.92rem; margin-top:10px; }
+
+  /* Final CTA */
+  .final { text-align:center; padding:80px 0; background:radial-gradient(ellipse 60% 80% at 50% 110%, var(--rose-soft) 0%, transparent 70%); }
+  .final h2 { font-size:clamp(1.8rem, 5vw, 2.6rem); }
+  .final .sub { margin-bottom:30px; }
+
+  footer { border-top:1px solid var(--line); padding:30px 0 44px; text-align:center; color:var(--dim); font-size:.88rem; }
+  footer a { color:var(--rose); text-decoration:none; }
+  footer .f-links { display:flex; gap:20px; justify-content:center; margin-top:8px; flex-wrap:wrap; }
 </style>
 </head>
 <body>
 
-<header>
+<nav>
   <div class="wrap">
-    <h1>The Bot <span>Mother</span></h1>
-    <p class="tag">Describe an agent. She builds it, tests it, and runs it for you — 24/7.</p>
-    <a class="cta" href="https://wa.me/21693008233" target="_blank" rel="noopener">Book a free pilot on WhatsApp</a>
+    <a class="logo" href="#">The Bot <em>Mother</em> 🐪</a>
+    <div class="links">
+      <a class="hide-m" href="#how">How it works</a>
+      <a class="hide-m" href="#pricing">Pricing</a>
+      <a class="hide-m" href="#faq">FAQ</a>
+      <a href="#pilot" class="btn btn-rose" style="padding:9px 20px; font-size:.88rem;">Free pilot</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">Free 2-week pilot — limited slots</span>
+    <h1>Describe an agent.<br>Get a working bot <span>in minutes.</span></h1>
+    <p class="sub">Your shop assistant, order-taker, and daily reporter — built live from one sentence, tested, and running 24/7 on WhatsApp, Telegram, or Slack.</p>
+    <div class="hero-cta">
+      <a class="btn btn-rose" href="#pilot">Book your free pilot</a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+    <p class="hero-note">No code. No setup. You talk; she builds.</p>
+
+    <div class="magic" aria-label="Magic Bar demo">
+      <div class="magic-bar">
+        <span class="dot r"></span><span class="dot"></span><span class="dot"></span>
+        <span class="magic-title">Magic Bar — thebotmother.com</span>
+      </div>
+      <div class="magic-body">
+        <div class="msg user">"Answer my customers on WhatsApp, take orders, and send me a summary every evening."</div>
+        <div class="msg bot">Got it. Building your <b>shop assistant bot</b> now…</div>
+        <div class="msg bot">
+          <b>✅ Your bot is live.</b>
+          <div class="build">
+            <i>💬 WhatsApp replies</i><i>🛒 Order capture</i><i>📊 Evening summary</i><i>🚨 Escalates tricky ones to you</i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <span class="chip">✅ <b>Quality gates</b> on every bot</span>
+      <span class="chip">🛡️ <b>Human review</b> for sensitive tasks</span>
+      <span class="chip">🩹 <b>Self-healing</b> — she restarts what breaks</span>
+      <span class="chip">🔒 <b>Isolated data</b> per customer</span>
+    </div>
   </div>
 </header>
 
-<div class="wrap">
-
-  <section>
-    <h2>How she works</h2>
-    <div class="steps">
-      <div class="step"><span class="num">1</span><b>You describe it in plain words</b>
-        <p>"Answer my customers on WhatsApp, take orders, and send me a summary every evening." That's enough.</p></div>
-      <div class="step"><span class="num">2</span><b>She builds and tests it</b>
-        <p>Your agent is designed, checked against safety and quality gates, and deployed automatically — live in days, not months.</p></div>
-      <div class="step"><span class="num">3</span><b>She runs it around the clock</b>
-        <p>Every message, summary and alert flows while you sleep. You get a daily report of what she did.</p></div>
+<section id="how">
+  <div class="wrap">
+    <p class="sec-eyebrow">How it works</p>
+    <h2>Seven steps. You only do the first one.</h2>
+    <p class="lead">The factory turns one sentence into a running, monitored bot — automatically.</p>
+    <div class="stages">
+      <div class="stage"><span class="num">1</span><b>You describe it</b><p>"Answer customers, take orders, send me a summary every evening." That's the whole input.</p></div>
+      <div class="stage"><span class="num">2</span><b>She asks what's missing</b><p>Missing details? She asks — languages, opening hours, prices — never guesses on your money.</p></div>
+      <div class="stage"><span class="num">3</span><b>She designs the plan</b><p>The agent's brain, tools, and safety rules are laid out — you see exactly what will run.</p></div>
+      <div class="stage"><span class="num">4</span><b>You approve it</b><p>Nothing goes live without your yes. One look, one click.</p></div>
+      <div class="stage"><span class="num">5</span><b>She builds &amp; tests it</b><p>Code generated, checked against quality and safety gates, sandbox-tested before touching real chats.</p></div>
+      <div class="stage"><span class="num">6</span><b>She deploys it</b><p>Live on your WhatsApp, Telegram, or Slack — connected to your tools, orders, and calendar.</p></div>
+      <div class="stage"><span class="num">7</span><b>She runs &amp; reports</b><p>24/7 operation, self-healing when things break, and a plain-language report of everything she did.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <h2>Built to be trusted</h2>
-    <div class="proof">
-      <span class="chip">✅ Automated quality gates on every bot</span>
-      <span class="chip">✅ Runs on n8n + LangGraph</span>
-      <span class="chip">✅ Monitored &amp; self-healing</span>
-      <span class="chip">✅ Your data stays isolated</span>
-      <span class="chip">✅ Human review for sensitive tasks</span>
-    </div>
-  </section>
-
-  <section>
+<section class="alt">
+  <div class="wrap">
+    <p class="sec-eyebrow">Examples</p>
     <h2>What she can birth for you</h2>
-    <div class="steps">
-      <div class="step"><b>💬 Customer assistant</b><p>Answers questions, takes orders, escalates anything sensitive to you.</p></div>
-      <div class="step"><b>📊 Daily digests</b><p>Invoices, sales, or messages — summarized and delivered where you read.</p></div>
-      <div class="step"><b>⏰ Reminders &amp; follow-ups</b><p>Stock alerts, appointment reminders, supplier chasers — on schedule.</p></div>
+    <div class="examples">
+      <div class="example"><span class="emoji">💬</span><b>Customer assistant</b><p>Answers questions, takes orders, escalates anything sensitive straight to you.</p></div>
+      <div class="example"><span class="emoji">📊</span><b>Daily digests</b><p>Invoices, sales, or messages — summarized and delivered where you actually read.</p></div>
+      <div class="example"><span class="emoji">⏰</span><b>Reminders &amp; follow-ups</b><p>Stock alerts, appointment reminders, supplier chasers — on schedule.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-</div>
+<section id="pilot">
+  <div class="wrap">
+    <p class="sec-eyebrow">Pilot offer</p>
+    <h2>Free 2-week pilot. Your bot, built live.</h2>
+    <p class="lead">We build your shop bot in front of you, run it for two weeks, and you keep it if you love it.</p>
+    <div class="pilot-card">
+      <span class="pilot-badge">Limited slots</span>
+      <h3>What's included</h3>
+      <p class="p-sub">No card required. No obligation. Two weeks, full service.</p>
+      <ul class="pilot-list">
+        <li>One bot built live with you — described in your own words</li>
+        <li>Connected to your WhatsApp or Telegram</li>
+        <li>Two weeks of 24/7 operation, monitored daily</li>
+        <li>A daily report of everything the bot did</li>
+        <li>Keep it (from $29/mo) or walk away — your call</li>
+      </ul>
+      <form id="pilotForm">
+        <div class="row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="text" name="business" placeholder="Business name" required>
+        </div>
+        <select name="business_type" required>
+          <option value="" disabled selected>Business type</option>
+          <option>Retail / Shop</option>
+          <option>Restaurant / Café</option>
+          <option>Services (salon, clinic, gym…)</option>
+          <option>Online store</option>
+          <option>Other</option>
+        </select>
+        <input type="text" name="contact" placeholder="WhatsApp number or Telegram username" required>
+        <input type="text" name="bot_idea" placeholder="In one sentence: what should the bot do? (optional)">
+        <button type="submit" class="btn btn-rose" id="pilotBtn">Claim my free pilot →</button>
+        <p class="form-note">Prefer chatting first? <a href="https://wa.me/21693008233?text=Hi%2C%20I%20want%20the%20free%202-week%20pilot!" target="_blank" rel="noopener" style="color:var(--rose); font-weight:600;">Message us on WhatsApp</a></p>
+      </form>
+      <div class="form-ok" id="formOk">
+        <b>🎉 You're in the queue!</b>
+        <p>We'll reach out on your WhatsApp/Telegram within 24h to build your bot live. Talk soon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="alt">
+  <div class="wrap">
+    <p class="sec-eyebrow">Pricing</p>
+    <h2>Simple plans. No surprises.</h2>
+    <div class="toggle">
+      <span>Monthly</span>
+      <div class="switch" id="billSwitch" role="switch" aria-checked="false" tabindex="0"></div>
+      <span>Yearly <span class="save">2 months free</span></span>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Starter</h3>
+        <p class="for">First bot for a small shop</p>
+        <div class="price">
+          <span class="amount month-amt">$29</span>
+          <span class="amount year-amt">$24</span>
+          <span class="per">/month</span>
+          <span class="year-note year-amt" style="display:none;">billed $290/yr</span>
+        </div>
+        <ul>
+          <li>1–3 agents</li>
+          <li>5,000 messages/mo</li>
+          <li>Email + Telegram channels</li>
+          <li>Daily activity report</li>
+        </ul>
+        <a class="btn btn-ghost" href="#pilot">Start with a free pilot</a>
+      </div>
+      <div class="plan featured">
+        <span class="tagp">Most popular</span>
+        <h3>Pro</h3>
+        <p class="for">Growing teams that live in Slack</p>
+        <div class="price">
+          <span class="amount month-amt">$99</span>
+          <span class="amount year-amt">$83</span>
+          <span class="per">/month</span>
+          <span class="year-note year-amt" style="display:none;">billed $990/yr</span>
+        </div>
+        <ul>
+          <li>4–10 agents</li>
+          <li>50,000 messages/mo</li>
+          <li>+ Slack &amp; Web chat</li>
+          <li>Priority support</li>
+        </ul>
+        <a class="btn btn-rose" href="#pilot">Start with a free pilot</a>
+      </div>
+      <div class="plan">
+        <h3>Business</h3>
+        <p class="for">Multi-agent operations</p>
+        <div class="price">
+          <span class="amount month-amt">$299</span>
+          <span class="amount year-amt">$249</span>
+          <span class="per">/month</span>
+          <span class="year-note year-amt" style="display:none;">billed $2990/yr</span>
+        </div>
+        <ul>
+          <li>11–25 agents</li>
+          <li>500,000 messages/mo</li>
+          <li>+ API &amp; WhatsApp</li>
+          <li>Dedicated onboarding</li>
+        </ul>
+        <a class="btn btn-ghost" href="#pilot">Start with a free pilot</a>
+      </div>
+    </div>
+    <p class="pricing-note">Every plan starts with the free 2-week pilot. Cancel anytime.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="sec-eyebrow">FAQ</p>
+    <h2>Honest answers</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is it live now?</summary>
+        <p>Private pilots are running now — that's what the free 2-week pilot is. Public self-serve launch comes after the pilot wave. Pilot customers get founding-customer pricing locked in forever.</p>
+      </details>
+      <details>
+        <summary>Do I need to know anything technical?</summary>
+        <p>No. You describe the bot in one sentence — in English, French, or Arabic. She asks the missing questions, builds it, and tests it. Your only job is approving the plan.</p>
+      </details>
+      <details>
+        <summary>Which channels does it work on?</summary>
+        <p>WhatsApp, Telegram, Slack, email, and web chat — depending on your plan. The bot replies in your customers' language automatically.</p>
+      </details>
+      <details>
+        <summary>What if the bot makes a mistake?</summary>
+        <p>Anything sensitive — payments, deletions, angry customers — is escalated to you, never handled blindly. Every bot passes quality and safety gates before going live, and she self-heals when something breaks.</p>
+      </details>
+      <details>
+        <summary>What happens after the free pilot?</summary>
+        <p>You choose: keep the bot on a plan (from $29/mo), tweak it and keep going, or stop — we'll disconnect everything. Two weeks is enough to know if it earns its keep.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Your bot could be live tonight.</h2>
+    <p class="sub">One sentence. Two weeks free. Zero code.</p>
+    <a class="btn btn-rose" href="#pilot">Book your free pilot →</a>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
-    Made in Tunis 🇹🇳 · <a href="https://wa.me/21693008233">WhatsApp: +216 93 008 233</a> ·
-    <a href="mailto:amenallahbensalem135@gmail.com">amenallahbensalem135@gmail.com</a>
+    <div>The Bot Mother 🐪 · Made in Tunis 🇹🇳 · Runs on n8n + LangGraph</div>
+    <div class="f-links">
+      <a href="https://wa.me/21693008233">WhatsApp: +216 93 008 233</a>
+      <a href="mailto:amenallahbensalem135@gmail.com">amenallahbensalem135@gmail.com</a>
+    </div>
   </div>
 </footer>
+
+<script>
+  // Pricing toggle
+  const sw = document.getElementById('billSwitch');
+  const plans = document.querySelectorAll('.plan');
+  function setYearly(on) {
+    sw.classList.toggle('on', on);
+    sw.setAttribute('aria-checked', on);
+    plans.forEach(p => p.classList.toggle('yearly', on));
+  }
+  sw.addEventListener('click', () => setYearly(!sw.classList.contains('on')));
+  sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setYearly(!sw.classList.contains('on')); } });
+
+  // Pilot form → FormSubmit (emails Amen directly, feeds the pilot pipeline)
+  const form = document.getElementById('pilotForm');
+  const btn = document.getElementById('pilotBtn');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const data = Object.fromEntries(new FormData(form).entries());
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/amenallahbensalem135@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: '🎯 NEW PILOT REQUEST — The Bot Mother',
+          _template: 'table',
+          name: data.name, business: data.business, business_type: data.business_type,
+          contact: data.contact, bot_idea: data.bot_idea || '—'
+        })
+      });
+      if (!r.ok) throw new Error('bad status ' + r.status);
+      form.style.display = 'none';
+      document.getElementById('formOk').style.display = 'block';
+    } catch (err) {
+      // Fallback: open WhatsApp with the prefilled request
+      const text = encodeURIComponent(`Hi! Free pilot request:%0AName: ${data.name}%0ABusiness: ${data.business} (${data.business_type})%0AContact: ${data.contact}%0ABot idea: ${data.bot_idea || '—'}`);
+      window.open('https://wa.me/21693008233?text=' + text, '_blank');
+      form.style.display = 'none';
+      document.getElementById('formOk').style.display = 'block';
+    }
+  });
+</script>
 
 </body>
 </html>
