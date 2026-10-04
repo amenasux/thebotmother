@@ -403,23 +403,20 @@
   sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setYearly(!sw.classList.contains('on')); } });
 
   // Pilot form → FormSubmit (emails Amen directly, feeds the pilot pipeline)
-  const COUNTRIES = [
-    ['🇩🇪', 'Germany', '+49'], ['🇫🇷', 'France', '+33'], ['🇹🇳', 'Tunisia', '+216'], ['🇬🇧', 'UK', '+44'],
-    ['🇺🇸', 'USA', '+1'], ['🇮🇹', 'Italy', '+39'], ['🇪🇸', 'Spain', '+34'], ['🇳🇱', 'Netherlands', '+31'],
-    ['🇧🇪', 'Belgium', '+32'], ['🇨🇭', 'Switzerland', '+41'], ['🇦🇹', 'Austria', '+43'], ['🇵🇱', 'Poland', '+48'],
-    ['🇵🇹', 'Portugal', '+351'], ['🇸🇪', 'Sweden', '+46'], ['🇮🇪', 'Ireland', '+353'], ['🇩🇰', 'Denmark', '+45'],
-    ['🇳🇴', 'Norway', '+47'], ['🇫🇮', 'Finland', '+358'], ['🇬🇷', 'Greece', '+30'], ['🇷🇴', 'Romania', '+40'],
-    ['🇨🇿', 'Czechia', '+420'], ['🇭🇺', 'Hungary', '+36'], ['🇹🇷', 'Türkiye', '+90'], ['🇲🇦', 'Morocco', '+212'],
-    ['🇩🇿', 'Algeria', '+213'], ['🇪🇬', 'Egypt', '+20'], ['🇸🇦', 'Saudi Arabia', '+966'], ['🇦🇪', 'UAE', '+971'],
-    ['🇶🇦', 'Qatar', '+974'], ['🇰🇼', 'Kuwait', '+965'], ['🇯🇴', 'Jordan', '+962'], ['🇱🇧', 'Lebanon', '+961'],
-    ['🇱🇾', 'Libya', '+218'], ['🇸🇳', 'Senegal', '+221'], ['🇨🇮', 'Ivory Coast', '+225'], ['🇨🇦', 'Canada', '+1'],
-    ['🇦🇺', 'Australia', '+61'], ['🇧🇷', 'Brazil', '+55'], ['🇮🇳', 'India', '+91'], ['🇿🇦', 'South Africa', '+27'],
-    ['🌐', 'Other / worldwide', '']
-  ];
+  // Full ITU country list: CODE:Name:dialcode — flag emoji is computed from the code
+  const RAW = "AD:Andorra:376|AE:UAE:971|AF:Afghanistan:93|AG:Antigua:1268|AI:Anguilla:1264|AL:Albania:355|AM:Armenia:374|AO:Angola:244|AR:Argentina:54|AS:American Samoa:1684|AT:Austria:43|AU:Australia:61|AW:Aruba:297|AZ:Azerbaijan:994|BA:Bosnia:387|BB:Barbados:1246|BD:Bangladesh:880|BE:Belgium:32|BF:Burkina Faso:226|BG:Bulgaria:359|BH:Bahrain:973|BI:Burundi:257|BJ:Benin:229|BL:St. Barthélemy:590|BM:Bermuda:1441|BN:Brunei:673|BO:Bolivia:591|BR:Brazil:55|BS:Bahamas:1242|BT:Bhutan:975|BW:Botswana:267|BY:Belarus:375|BZ:Belize:501|CA:Canada:1|CD:DR Congo:243|CF:Central Africa:236|CG:Congo:242|CH:Switzerland:41|CI:Ivory Coast:225|CK:Cook Islands:682|CL:Chile:56|CM:Cameroon:237|CN:China:86|CO:Colombia:57|CR:Costa Rica:506|CU:Cuba:53|CV:Cape Verde:238|CW:Curaçao:599|CY:Cyprus:357|CZ:Czechia:420|DE:Germany:49|DJ:Djibouti:253|DK:Denmark:45|DM:Dominica:1767|DO:Dominican Rep.:1809|DZ:Algeria:213|EC:Ecuador:593|EE:Estonia:372|EG:Egypt:20|ER:Eritrea:291|ES:Spain:34|ET:Ethiopia:251|FI:Finland:358|FJ:Fiji:679|FK:Falkland Is.:500|FM:Micronesia:691|FO:Faroe Is.:298|FR:France:33|GA:Gabon:241|GB:UK:44|GD:Grenada:1473|GE:Georgia:995|GF:French Guiana:594|GG:Guernsey:44|GH:Ghana:233|GI:Gibraltar:350|GL:Greenland:299|GM:Gambia:220|GN:Guinea:224|GP:Guadeloupe:590|GQ:Equ. Guinea:240|GR:Greece:30|GT:Guatemala:502|GU:Guam:1671|GW:Guinea-Bissau:245|GY:Guyana:592|HK:Hong Kong:852|HN:Honduras:504|HR:Croatia:385|HT:Haiti:509|HU:Hungary:36|ID:Indonesia:62|IE:Ireland:353|IL:Israel:972|IM:Isle of Man:44|IN:India:91|IQ:Iraq:964|IR:Iran:98|IS:Iceland:354|IT:Italy:39|JE:Jersey:44|JM:Jamaica:1876|JO:Jordan:962|JP:Japan:81|KE:Kenya:254|KG:Kyrgyzstan:996|KH:Cambodia:855|KI:Kiribati:686|KM:Comoros:269|KN:St. Kitts:1869|KP:North Korea:850|KR:South Korea:82|KW:Kuwait:965|KY:Cayman Is.:1345|KZ:Kazakhstan:7|LA:Laos:856|LB:Lebanon:961|LC:St. Lucia:1758|LI:Liechtenstein:423|LK:Sri Lanka:94|LR:Liberia:231|LS:Lesotho:266|LT:Lithuania:370|LU:Luxembourg:352|LV:Latvia:371|LY:Libya:218|MA:Morocco:212|MC:Monaco:377|MD:Moldova:373|ME:Montenegro:382|MF:St. Martin:590|MG:Madagascar:261|MH:Marshall Is.:692|MK:North Macedonia:389|ML:Mali:223|MM:Myanmar:95|MN:Mongolia:976|MO:Macau:853|MP:Marianas:1670|MQ:Martinique:596|MR:Mauritania:222|MS:Montserrat:1664|MT:Malta:356|MU:Mauritius:230|MV:Maldives:960|MW:Malawi:265|MX:Mexico:52|MY:Malaysia:60|MZ:Mozambique:258|NA:Namibia:264|NC:New Caledonia:687|NE:Niger:227|NF:Norfolk Is.:672|NG:Nigeria:234|NI:Nicaragua:505|NL:Netherlands:31|NO:Norway:47|NP:Nepal:977|NZ:New Zealand:64|OM:Oman:968|PA:Panama:507|PE:Peru:51|PF:Polynesia:689|PG:Papua N.G.:675|PH:Philippines:63|PK:Pakistan:92|PL:Poland:48|PM:St. Pierre:508|PR:Puerto Rico:1787|PS:Palestine:970|PT:Portugal:351|PW:Palau:680|PY:Paraguay:595|QA:Qatar:974|RE:Réunion:262|RO:Romania:40|RS:Serbia:381|RU:Russia:7|RW:Rwanda:250|SA:Saudi Arabia:966|SB:Solomon Is.:677|SC:Seychelles:248|SD:Sudan:249|SE:Sweden:46|SG:Singapore:65|SH:St. Helena:290|SI:Slovenia:386|SK:Slovakia:421|SL:Sierra Leone:232|SM:San Marino:378|SN:Senegal:221|SO:Somalia:252|SR:Suriname:597|SS:South Sudan:211|ST:São Tomé:239|SV:El Salvador:503|SX:Sint Maarten:1721|SY:Syria:963|SZ:Eswatini:268|TC:Turks & Caicos:1649|TD:Chad:235|TG:Togo:228|TH:Thailand:66|TJ:Tajikistan:992|TL:Timor-Leste:670|TM:Turkmenistan:993|TN:Tunisia:216|TO:Tonga:676|TR:Türkiye:90|TT:Trinidad:1868|TV:Tuvalu:688|TW:Taiwan:886|TZ:Tanzania:255|UA:Ukraine:380|UG:Uganda:256|US:USA:1|UY:Uruguay:598|UZ:Uzbekistan:998|VA:Vatican:379|VC:St. Vincent:1784|VE:Venezuela:58|VG:Virgin Is. (UK):1284|VI:Virgin Is. (US):1340|VN:Vietnam:84|VU:Vanuatu:678|WF:Wallis & Futuna:681|WS:Samoa:685|XK:Kosovo:383|YE:Yemen:967|YT:Mayotte:262|ZA:South Africa:27|ZM:Zambia:260|ZW:Zimbabwe:263";
+  const flagOf = (c) => String.fromCodePoint(...[...c].map((ch) => 0x1F1E6 + ch.charCodeAt(0) - 65));
+  const COUNTRIES = RAW.split('|')
+    .map((s) => s.split(':'))
+    .map(([c, n, d]) => [c, n, '+' + d])
+    .sort((a, b) => (a[0] === 'DE' ? -1 : b[0] === 'DE' ? 1 : a[1].localeCompare(b[1])));
+  COUNTRIES.push(['XX', 'Other / worldwide', '']);
   const ccSelect = document.getElementById('countryCode');
-  COUNTRIES.forEach(([flag, name, dial], i) => {
+  COUNTRIES.forEach(([code, name, dial], i) => {
     const o = document.createElement('option');
-    o.value = dial; o.textContent = `${flag} ${name}${dial ? ' ' + dial : ''}`;
+    const flag = code === 'XX' ? '🌐' : flagOf(code);
+    o.value = dial;
+    o.textContent = `${flag} ${name}${dial ? ' ' + dial : ''}`;
     if (i === 0) o.selected = true;
     ccSelect.appendChild(o);
   });
